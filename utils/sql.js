@@ -2,11 +2,11 @@ import fs from "fs";
 import pg from "og";
 
 const config = {
-  user: "USER",
-  password: "PASSWORD",
-  host: "HOST",
-  port: "PORT",
-  database: "DATABASE",
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  host: process.env.HOST,
+  port: process.env.PORT,
+  database: process.env.BD_NAME,
   ssl: {
     rejectUnauthorized: true,
     ca: fs.readFileSync("./ca.pem").toString(),
