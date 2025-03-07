@@ -1,8 +1,8 @@
 import fs from "fs";
-import pg from "og";
+import pg from "pg";
 
 const config = {
-  user: process.env.USER,
+  user: process.env.USER_NAME,
   password: process.env.PASSWORD,
   host: process.env.HOST,
   port: process.env.PORT,
@@ -13,15 +13,8 @@ const config = {
   },
 };
 
-const client = new pg.Client(config);
-client.connect(function (err) {
-  if (err) throw err;
-  client.query("SELECT VERSION()", [], function (err, result) {
-    if (err) throw err;
-
-    console.log(result.rows[0]);
-    client.end(function (err) {
-      if (err) throw err;
-    });
-  });
-});
+export const connectDB = () => {
+  const client = new pg.Client(config); 
+  client.connect();
+  return client; 
+};
