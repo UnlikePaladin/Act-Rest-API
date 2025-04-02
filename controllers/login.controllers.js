@@ -2,10 +2,6 @@ import { connectDB } from "../utils/sql.js";
 import { hashPassword } from "../utils/hash.js";
 
 export const login = async (req, res) => {
-    const salt = data.rows[0].password.substring(0,process.env.SALT);
-    const hash = hashPassword(req.body.password, salt);
-    const saltedHash = salt + hash;
-
     const sql = connectDB();
     const query = {
         "text": "select * from users where username = $1",
@@ -16,6 +12,10 @@ export const login = async (req, res) => {
     if (data.rows.length < 1) {
         return res.json({loggedIn: false, user : {}});
     }
+
+    const salt = data.rows[0].password.substring(0,process.env.SALT);
+    const hash = hashPassword(req.body.password, salt);
+    const saltedHash = salt + hash;
 
     if (saltedHash === data.rows[0].password) {
         return res.json({loggedIn: true, user : data.rows[0]});
