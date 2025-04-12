@@ -7,7 +7,7 @@ import loginRoutes from "./routes/login.routes.js";
 import morgan from "morgan";
 
 const app = express();
-const port = 5000;
+const port = 4000;
 
 app.use(cors());
 app.use(morgan("dev"));
